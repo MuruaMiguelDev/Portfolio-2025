@@ -16,7 +16,7 @@ export const experiences: Experience[] = [
     current: true,
     responsibilities: [
       "Gestión y optimización de campañas en Meta Ads (Facebook e Instagram)",
-      "Administración del portafolio comercial digital",
+      "Administración del portafolio comercial (Meta Business Suite)",
       "Gestión de redes sociales y diseño de contenido",
       "Crecimiento de comunidad digital (+10.000 seguidores)",
       "Sitios en Shopify (Gestión de productos, diseño y optimización)",
@@ -31,9 +31,12 @@ export const experiences: Experience[] = [
     current: false,
     responsibilities: [
       "Gestión de redes y diseño de contenido",
-      "Sitios en WordPress (HTML y CSS)",
+      "Gestión y optimización de campañas en Meta Ads.",
+      "Administración del portafolio comercial (Meta Business Suite)",
+      "Gestión de redes sociales y diseño de contenido",
+      "Sitios en WordPress (Gestión de diseño y optimización)",
       "Diseño en Canva, CapCut, Illustrator y Photoshop (Herramientas de adobe básicas)",
-      "Automatizaciones con Zapier, ManyChat y Envialo Simple",
+      "Automatizaciones con Zapier, ManyChat, Envialo Simple",
     ],
   },
 ]
