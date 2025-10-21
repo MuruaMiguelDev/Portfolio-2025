@@ -17,7 +17,9 @@ export const experiences: Experience[] = [
     responsibilities: [
       "Gestión y optimización de campañas en Meta Ads (Facebook e Instagram)",
       "Administración del portafolio comercial digital",
+      "Gestión de redes sociales y diseño de contenido",
       "Crecimiento de comunidad digital (+10.000 seguidores)",
+      "Sitios en Shopify (Gestión de productos, diseño y optimización)",
       "Reportes y análisis de métricas clave",
     ],
   },
@@ -30,7 +32,7 @@ export const experiences: Experience[] = [
     responsibilities: [
       "Gestión de redes y diseño de contenido",
       "Sitios en WordPress (HTML y CSS)",
-      "Diseño en Canva, CapCut, Illustrator y Photoshop",
+      "Diseño en Canva, CapCut, Illustrator y Photoshop (Herramientas de adobe básicas)",
       "Automatizaciones con Zapier, ManyChat y Envialo Simple",
     ],
   },

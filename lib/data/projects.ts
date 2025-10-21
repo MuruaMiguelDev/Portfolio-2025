@@ -8,18 +8,19 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: "Maglev",
+    title: "Maglev Servicios Eléctricos",
     description:
-      "Sitio web profesional para empresa de servicios eléctricos, con diseño moderno y optimizado para conversión.",
+      "Landing page profesional para empresa de servicios eléctricos, con diseño moderno y optimizado para conversión.",
     stack: ["Astro", "Tailwind CSS", "JavaScript"],
     url: "https://maglev-web.vercel.app/",
     image: "/images/projects/Maglev-mockup.png",
   },
   {
-    title: "Landing Suplementos Deportivos",
+    title: "E-commerce Suplementos Deportivos",
     description:
-      "Landing page en desarrollo para e-commerce de suplementos. Fase 1 con Astro, escalable con React y backend colaborativo.",
-    stack: ["Astro", "Tailwind CSS", "JavaScript", "React (próximamente)","EN DESARROLLO",],
-    image: "/images/projects/suplementos-thumb.jpg",
+      "E-commerce de suplementos deportivos. Diseño atractivo y funcional para mejorar la experiencia del usuario y aumentar las ventas.",
+    stack: ["Next.js", "Tailwind CSS", "TypeScript", "JavaScript", "PL/pgSQL", "EN DESARROLLO",],
+    url: "https://supplementos-shop-868a.vercel.app/",
+    image: "/images/projects/Supple.webp",
   },
 ]
