@@ -3,9 +3,17 @@
 import { useState, type FormEvent } from "react"
 import { personalInfo } from "@/lib/data/personal"
 
-const url = 'https://script.google.com/macros/s/AKfycbw6pLiResn8j9mRIJoq9aAbikhqEU8QNGnaiHVvcb63MlkZ5PERPlkkOR0FM4jJPrOG/exec';
+const url =
+  "https://script.google.com/macros/s/AKfycbw6pLiResn8j9mRIJoq9aAbikhqEU8QNGnaiHVvcb63MlkZ5PERPlkkOR0FM4jJPrOG/exec"
 
 type Msg = { text: string; type: "success" | "error" }
+
+// (Opcional) tipado mínimo para evitar errores de TS al usar dataLayer
+declare global {
+  interface Window {
+    dataLayer: Array<Record<string, any>>
+  }
+}
 
 export default function ContactForm() {
   const [formMessage, setFormMessage] = useState<Msg | null>(null)
@@ -19,37 +27,50 @@ export default function ContactForm() {
     const formEl = e.currentTarget
     const formData = new FormData(formEl)
 
-    // (Opcional) añade un timestamp útil en Apps Script
+    // Útil para Apps Script / auditoría
     formData.append("_submitted_at", new Date().toISOString())
 
     try {
       const res = await fetch(url, {
         method: "POST",
         body: formData,
-        // Si tu Apps Script incluye CORS correcto, no hace falta 'mode: "no-cors"'
-        // mode: "no-cors",
       })
 
-      // Intentamos leer respuesta si el servidor la expone
+      // Determinar éxito real (si el endpoint devuelve JSON con { success: true })
       let ok = res.ok
       try {
         const isJSON = res.headers.get("content-type")?.includes("application/json")
         if (isJSON) {
           const data = await res.json()
-          // Si tu Apps Script devuelve { success: true }, úsalo:
           if (typeof data?.success === "boolean") ok = data.success
         }
       } catch {
-        /* ignoramos si no hay JSON legible */
+        /* sin JSON legible, seguimos con res.ok */
       }
 
       if (!ok) throw new Error(`HTTP ${res.status}`)
+
+      // 👉 EVENTO PERSONALIZADO A GA4 (vía GTM)
+      // Este evento reemplaza el activador nativo de "Envío de formulario" para evitar duplicados.
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({
+          event: "generate_lead",
+          form_id: "contact-form",
+          form_name: "Contacto",
+          method: "apps_script",
+          status: "success",
+        })
+      }
 
       setFormMessage({
         text: "¡Mensaje enviado con éxito! Te responderé pronto.",
         type: "success",
       })
       formEl.reset()
+
+      // Ocultamos el mensaje de éxito a los 5 s
+      setTimeout(() => setFormMessage(null), 5000)
     } catch (err: any) {
       console.error("[contact] error:", err)
       setFormMessage({
@@ -59,10 +80,6 @@ export default function ContactForm() {
       })
     } finally {
       setLoading(false)
-      // Oculta el mensaje después de 5s (solo si fue éxito)
-      if (formMessage?.type !== "error") {
-        setTimeout(() => setFormMessage(null), 5000)
-      }
     }
   }
 
@@ -108,7 +125,10 @@ export default function ContactForm() {
             </div>
 
             <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-2 text-card-foreground">
+              <label
+                htmlFor="message"
+                className="block text-sm font-medium mb-2 text-card-foreground"
+              >
                 Mensaje
               </label>
               <textarea
@@ -129,12 +149,7 @@ export default function ContactForm() {
             >
               {loading ? (
                 <span className="inline-flex items-center gap-2 justify-center">
-                  <svg
-                    className="animate-spin h-5 w-5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
+                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <circle
                       className="opacity-25"
                       cx="12"
