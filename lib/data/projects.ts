@@ -8,7 +8,7 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-  title: "Oros Strategy Marketing",
+  title: "Óros Strategy Marketing",
   description:
     "Landing page profesional para empresa de servicios marketing digital, con diseño moderno y optimizado para conversión.",
   stack: ["Astro", "Tailwind CSS", "JavaScript"],
